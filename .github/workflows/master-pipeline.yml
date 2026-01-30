@@ -16,14 +16,14 @@ jobs:
       run: |
         git_hash=$(git rev-parse --short HEAD)
         repo=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
-        sdocker build . -t ghcr.io/$repo/project-api:$git_hash
+        sdocker build . -t ghcr.io/$repo/edu-project-api:$git_hash
 
     - name: Test image
       run: |
         git_hash=$(git rev-parse --short HEAD)
         docker run \
           --entrypoint=/bin/bash \
-          ghcr.io/${{ github.repository }}/project-api:$git_hash \
+          ghcr.io/${{ github.repository }}/edu-project-api:$git_hash \
           ./script/test
 
     - name: Login to GitHub Container Registry
@@ -33,4 +33,4 @@ jobs:
     - name: Push Docker image
       run: |
         git_hash=$(git rev-parse --short HEAD)
-        docker push ghcr.io/${{ github.repository }}/project-api:$git_hash
+        docker push ghcr.io/${{ github.repository }}/edu-project-api:$git_hash
