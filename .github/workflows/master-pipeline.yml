@@ -15,7 +15,8 @@ jobs:
     - name: Build Docker image
       run: |
         git_hash=$(git rev-parse --short HEAD)
-        docker build . -t ghcr.io/${{ github.repository }}/project-api:$git_hash
+        repo=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+        sdocker build . -t ghcr.io/$repo/project-api:$git_hash
 
     - name: Test Docker image
       run: |
